@@ -1,0 +1,115 @@
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #007600;">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'home' %}">Home</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          
+            {%if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </li>
+            {% else %}
+  
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'register' %}">Register</a>
+            </li>
+  
+          
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'login' %}">Login</a>
+            </li>
+            {% endif %} 
+
+
+            
+
+          {% if user.is_authenticated %}
+          {% if user.is_student %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'view-task-student' %}">View all tasks</a>
+          </li>
+          {% endif %}
+
+
+
+          {% if user.is_teacher or user.is_admin %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Tasks
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">              
+                <li><a class="dropdown-item" href="{% url 'add-task' %}">Add New task</a></li>
+                {% endif %} 
+                {% if user.is_teacher %}
+                <li><a class="dropdown-item" href="{% url 'view-task-teacher' %}">View all tasks</a></li>
+                {% endif %} 
+                {% if user.is_admin %}
+                <li><a class="dropdown-item" href="{% url 'view-task-admin' %}">View all tasks</a></li>
+                {% endif %} 
+              </ul>
+            </li>
+
+              {% if user.is_admin or user.is_teacher %}
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Students
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="{% url 'add_student' %}">Add New Student</a></li>
+                  <li><a class="dropdown-item" href="{% url 'student-list' %}">Student List</a></li>
+                </ul>
+              </li>
+              {% endif %}
+
+              {% if user.is_admin %}
+
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Teachers
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="{% url 'add_teacher' %}">Add New Teacher</a></li>
+                  <li><a class="dropdown-item" href="{% url 'teacher-list' %}">Teacher list</a></li>
+                </ul>
+              </li>
+              {% endif %} 
+              <li class="nav-item">
+                <a class="nav-link" href="">Welcome {{user.first_name}} {{user.last_name}}</a>
+              </li>
+          
+
+          {% endif %} 
+
+
+               
+
+              
+
+  
+
+
+          {% comment %} <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Blogs
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="{% url 'list-blogs' %}">All Blogs</a></li>
+              {%if user.is_authenticated %}
+              <li><a class="dropdown-item" href="{% url 'add-blog' %}">Add Blog</a>
+              {% endif %}
+              
+            </ul>
+          </li> {% endcomment %}
+   
+          
+        </ul>
+        {% comment %} <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form> {% endcomment %}
+      </div>
+    </div>
+  </nav>

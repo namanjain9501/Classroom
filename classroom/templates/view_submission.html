@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+{% if user.is_teacher or user.is_admin %}
+
+
+<div class="container"><div class=" text-center mt-5 ">
+  <h1>Submissions - {{assignment.name}}</h1>
+</div>
+
+
+
+{% for i in submissions %}
+<div class="row ">
+  <div class="col-lg-7 mx-auto">
+      <div class="card mt-2 mx-auto p-4 bg-light">
+        <div class="card-header">
+          <center>
+          <h4>{{ i.user.first_name }} {{ i.user.last_name }}</h4>
+          <h6>Username- {{ i.user }}</h6>
+          </center>
+        </div>
+          <div class="card-body bg-light">
+              <div class="container">
+                <h6 class="card-title">Time and Date of Submission- {{ i.time_submitted }}</h6>
+                <p class="card-text">{{ i.submission }}</p>
+                
+              </div>
+            </div>
+        </div> <!-- /.8 -->
+
+     
+    </div> <!-- /.row-->
+  
+</div>
+</br>
+
+{% endfor %}
+{% endif %}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+{% if user.is_admin %}
+
+</br>
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Username</th>
+        <th scope="col">Update</th>
+        <th scope="col">Delete</th>
+
+      </tr> 
+    </thead>
+
+{% for i in teacher_list %}
+{% if i.is_teacher == True  %}
+
+    <tbody>
+      <tr>
+        <td>{{i.first_name}} {{i.last_name}}</td>
+        <td>{{i.email}}</td>
+        <td>{{i}}</td>
+        <td><a href= "{% url 'update-teacher' i.id %}" class="btn btn-outline-secondary">Update</a></td>
+        <td><a href="{% url 'delete-student' i.id %}" class="btn btn-outline-danger">Delete</a></td>
+      </tr>
+
+    </tbody>
+
+{% endif %}
+
+{% endfor %}
+</table>
+</br>
+{% endif %}
+{% endif %}
+{% endblock %}

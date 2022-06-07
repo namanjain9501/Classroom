@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+
+<div class="container"><div class=" text-center mt-5 ">
+  <h1>All Tasks</h1>
+</div>
+{% for i in assignments reversed %}
+<div class="row ">
+  <div class="col-lg-7 mx-auto">
+    
+ 
+      <div class="card mt-2 mx-auto p-4 bg-light">
+          <div class="card-header">
+              <center><h4><h4>{{i.name}}</h4></h4></center>
+              <center>{{i.post_time}}</center>
+          </div>
+          <div class="card-body bg-light">
+              <div class="container">
+                  <center><h6 class="card-title">Deadline: {{i.deadline }}</h6></center>
+                  <p class="card-text">{{i.description }}</p>
+                
+              </br>
+                    {% if user.is_teacher or user.is_admin %}
+                      <a href= "{% url 'view-submissions' i.id %}" class="btn  btn-outline-success btn-send pt-1 btn-block">Check All Submissions</a>
+                      {% endif %}
+                      {% if user.is_student  %}
+                      <a href= "{% url 'submit' i.id %}" class="btn  btn-outline-success btn-send pt-2 btn-block ">Submit</a>
+                      {% endif %}
+              
+
+                </div>
+              </div>
+          </div> <!-- /.8 -->
+
+       
+      </div> <!-- /.row-->
+    
+  </div>
+</br>
+  {% endfor %}
+
+                  
+
+
+
+
+
+
+{% endif %}
+{% endblock %} 
